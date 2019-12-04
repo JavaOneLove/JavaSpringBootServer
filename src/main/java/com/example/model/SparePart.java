@@ -1,6 +1,12 @@
 package com.example.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class SparePart {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String mark;

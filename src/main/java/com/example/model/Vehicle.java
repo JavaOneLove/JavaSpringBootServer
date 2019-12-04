@@ -1,8 +1,13 @@
 package com.example.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table
 public class Vehicle {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String mark;
     private String model;

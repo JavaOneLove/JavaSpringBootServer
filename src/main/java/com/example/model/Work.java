@@ -1,7 +1,14 @@
 package com.example.model;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table
 public class Work {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
    private int id;
    private String name;
    private double price;
