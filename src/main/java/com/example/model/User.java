@@ -1,23 +1,34 @@
 package com.example.model;
 
+
 import javax.persistence.*;
+
+import java.util.Set;
 
 @Entity
 @Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-private int id;
-private String email;
-private String password;
+    private int id;
+    private String username;
+    private String email;
+    private String password;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public User() {
     }
 
-    public User(int id, String email, String password) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public int getId() {
@@ -26,6 +37,14 @@ private String password;
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -43,4 +62,5 @@ private String password;
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

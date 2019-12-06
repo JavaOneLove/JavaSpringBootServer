@@ -9,4 +9,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
 private int id;
 private Date date;
+
+    public Order() {
+    }
 }
