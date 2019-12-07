@@ -15,8 +15,7 @@ public class SparePart {
     private int value;
     private String Manufacturer;
 
-    public SparePart(int id, String name, String mark, String model, double price, int value, String manufacturer) {
-        this.id = id;
+    public SparePart(String name, String mark, String model, double price, int value, String manufacturer) {
         this.name = name;
         this.mark = mark;
         this.model = model;

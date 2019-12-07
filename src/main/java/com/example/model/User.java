@@ -1,8 +1,12 @@
 package com.example.model;
 
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
+
 import javax.persistence.*;
 
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -20,7 +24,15 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @OneToMany
+    private Collection<Vehicle> vehicles;
     public User() {
+    }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
     public Set<Role> getRoles() {

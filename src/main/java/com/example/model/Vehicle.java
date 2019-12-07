@@ -15,8 +15,10 @@ public class Vehicle {
     private String registrationNumber;
     private Date ProductionDate;
 
-    public Vehicle(int id, String mark, String model, String color, String registrationNumber, Date productionDate) {
-        this.id = id;
+    @ManyToOne
+    private User primaryVehicle;
+
+    public Vehicle(String mark, String model, String color, String registrationNumber, Date productionDate) {
         this.mark = mark;
         this.model = model;
         this.color = color;

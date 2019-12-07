@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -13,6 +16,11 @@ public class UserService {
     private UserRepository userRepository;
 
 
+    public List<User> getUserList(){
+        List<User> list = new ArrayList<>();
+        userRepository.findAll().forEach(e -> list.add(e));
+        return list;
+    }
    // @Override
    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
   //      return userRepository.findByUsername(username);

@@ -16,8 +16,7 @@ public class Work {
     public Work() {
     }
 
-    public Work(int id, String name, double price) {
-        this.id = id;
+    public Work(String name, double price) {
         this.name = name;
         this.price = price;
     }
