@@ -13,6 +13,9 @@ public class Work {
    private String name;
    private double price;
 
+   @ManyToOne
+   private Order primaryOrder;
+
     public Work() {
     }
 

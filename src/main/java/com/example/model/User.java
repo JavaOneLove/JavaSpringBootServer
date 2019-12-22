@@ -26,6 +26,10 @@ public class User {
 
     @OneToMany
     private Collection<Vehicle> vehicles;
+
+    @OneToMany
+    private Collection<Order> orders;
+
     public User() {
     }
 

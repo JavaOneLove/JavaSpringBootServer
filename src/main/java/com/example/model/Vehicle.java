@@ -17,6 +17,8 @@ public class Vehicle {
 
     @ManyToOne
     private User primaryVehicle;
+    @OneToOne
+    private Order primaryOrder;
 
     public Vehicle(String mark, String model, String color, String registrationNumber, Date productionDate) {
         this.mark = mark;
