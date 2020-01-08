@@ -1,8 +1,9 @@
 package com.example.model;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
+
+
 @Entity
 @Table
 public class Order {
@@ -12,20 +13,10 @@ public class Order {
     private Date date;
     private String status;
 
-    @OneToMany
-    private Collection<Work> works;
     @ManyToOne
     private User primaryUser;
     @OneToOne
     private Vehicle primaryVehicle;
-
-    public Order(Date date, String status, Collection<Work> works, User primaryUser, Vehicle primaryVehicle) {
-        this.date = date;
-        this.status = status;
-        this.works = works;
-        this.primaryUser = primaryUser;
-        this.primaryVehicle = primaryVehicle;
-    }
 
     public Order() {
     }
@@ -52,14 +43,6 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Collection<Work> getWorks() {
-        return works;
-    }
-
-    public void setWorks(Collection<Work> works) {
-        this.works = works;
     }
 
     public User getPrimaryUser() {

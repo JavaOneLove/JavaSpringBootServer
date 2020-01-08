@@ -9,7 +9,6 @@ import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,23 +30,23 @@ public class RegistrationController {
         if(UserFromDB == null){
             LOGGER = Logger.getLogger(RegistrationController.class.getName());
             LOGGER.log(Level.INFO,"Метод отработал");
-            user.setRoles(Collections.singleton(Role.USER));
+            //user.setRoles(Collections.singleton(Role.USER));
             userRepository.save(user);
         }
     }
-    @PostMapping
+    @PostMapping("/createOrder")
     public void createOrder(@RequestBody Order order){
         if(order != null){
             orderRepository.save(order);
         }
     }
-    @DeleteMapping
+    @DeleteMapping("/deleteUser")
     public void deleteUser(@PathVariable("id") int id){
         if (userRepository.findById(id).isPresent()) {
             userRepository.deleteById(id);
         }
     }
-    @PostMapping
+    @PostMapping("/updateUser")
     public void updateUser(@RequestBody User user){
         if (user != null){
             String usr = user.getUsername();

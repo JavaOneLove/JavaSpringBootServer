@@ -1,13 +1,11 @@
 package com.example.model;
 
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
 
 import javax.persistence.*;
 
-import java.util.Collection;
 import java.util.Set;
+
 
 @Entity
 @Table
@@ -24,11 +22,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToMany
-    private Collection<Vehicle> vehicles;
-
-    @OneToMany
-    private Collection<Order> orders;
 
     public User() {
     }

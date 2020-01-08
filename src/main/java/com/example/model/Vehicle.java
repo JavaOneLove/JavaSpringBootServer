@@ -12,23 +12,20 @@ public class Vehicle {
     private String mark;
     private String model;
     private String color;
-    private String registrationNumber;
     private Date ProductionDate;
 
     @ManyToOne
-    private User primaryVehicle;
-    @OneToOne
-    private Order primaryOrder;
-
-    public Vehicle(String mark, String model, String color, String registrationNumber, Date productionDate) {
-        this.mark = mark;
-        this.model = model;
-        this.color = color;
-        this.registrationNumber = registrationNumber;
-        ProductionDate = productionDate;
-    }
+    private User primaryUser;
 
     public Vehicle() {
+    }
+
+    public User getPrimaryUser() {
+        return primaryUser;
+    }
+
+    public void setPrimaryUser(User primaryUser) {
+        this.primaryUser = primaryUser;
     }
 
     public int getId() {
@@ -61,14 +58,6 @@ public class Vehicle {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public String getRegistrationNumber() {
-        return registrationNumber;
-    }
-
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
     }
 
     public Date getProductionDate() {
