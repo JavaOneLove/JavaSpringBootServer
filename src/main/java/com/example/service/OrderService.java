@@ -18,4 +18,7 @@ public class OrderService {
         orderRepository.findAll().forEach(e -> list.add(e));
         return list;
     }
+    public void save(Order order){
+        orderRepository.save(order);
+    }
 }

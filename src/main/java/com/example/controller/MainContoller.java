@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.example.model.Order;
 import com.example.model.OrderSparePart;
 import com.example.model.User;
 import com.example.model.Vehicle;
@@ -8,6 +9,7 @@ import com.example.repository.OrderRepository;
 import com.example.repository.UserRepository;
 import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,7 +46,7 @@ public class MainContoller {
     }
 
     @PostMapping("/login")
-    public int login(@RequestParam String email,@RequestParam String password) {
+    public int login(@RequestParam("email") String email, @RequestParam("password") String password) {
         int id = 0;
         LOGGER = Logger.getLogger(MainContoller.class.getName());
         LOGGER.log(Level.INFO, email);
@@ -71,9 +73,17 @@ public class MainContoller {
         return usersList;
     }
 
-    @GetMapping("/userDetails/{id}")
-    public User userDetails(@PathVariable int id) {
+     @GetMapping("/userDetails/{id}")
+     public User userDetails(@PathVariable("id") int id) {
+         LOGGER = Logger.getLogger(MainContoller.class.getName());
+         LOGGER.log(Level.INFO, "Пользователь получен");
         return userRepository.findById(id).get();
+    }
+    @GetMapping("/userDetailsName/{name}")
+    public User userDetails(@PathVariable("name") String username) {
+        LOGGER = Logger.getLogger(MainContoller.class.getName());
+        LOGGER.log(Level.INFO, "Пользователь получен");
+        return userRepository.findByUsername(username);
     }
 
     @GetMapping(path = "/vehicleList")
@@ -81,5 +91,23 @@ public class MainContoller {
         LOGGER = Logger.getLogger(MainContoller.class.getName());
         LOGGER.log(Level.INFO, "Список автомобилей получен");
         return vehicleService.getVehicleList();
+    }
+    @GetMapping(path = "/orderList")
+    public List<Order> getAllOrder(){
+        return orderService.getOrderList();
+    }
+
+    @PostMapping(path = "/createVehicle")
+    public void createVehicle(@RequestBody Vehicle vehicle){
+        LOGGER = Logger.getLogger(MainContoller.class.getName());
+        LOGGER.log(Level.INFO, "Автомобиль добавлен");
+        if (vehicle != null)
+        vehicleService.save(vehicle);
+    }
+    @PostMapping("/createOrder")
+    public void createOrder(@RequestBody Order order){
+        if(order != null){
+            orderService.save(order);
+        }
     }
 }

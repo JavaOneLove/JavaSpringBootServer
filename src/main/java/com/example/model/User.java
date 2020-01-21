@@ -16,11 +16,12 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String role;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+  //  @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+  //  @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+  //  @Enumerated(EnumType.STRING)
+  //  private Set<Role> roles;
 
 
     public User() {
@@ -32,12 +33,19 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public User(String username, String email, String password, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int getId() {

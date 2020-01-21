@@ -4,21 +4,49 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-@Entity
+@Entity(name = "zakaz")
 @Table
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private Date date;
+    private String date;
+    private String work;
     private String status;
+    private String comment;
 
-    @ManyToOne
-    private User primaryUser;
+
     @OneToOne
+    private User primaryUser;
+    @ManyToOne
     private Vehicle primaryVehicle;
 
     public Order() {
+    }
+
+    public Order(String date, String work, String status, String comment, User primaryUser, Vehicle primaryVehicle) {
+        this.date = date;
+        this.work = work;
+        this.status = status;
+        this.comment = comment;
+        this.primaryUser = primaryUser;
+        this.primaryVehicle = primaryVehicle;
+    }
+
+    public String getWork() {
+        return work;
+    }
+
+    public void setWork(String work) {
+        this.work = work;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public int getId() {
@@ -29,11 +57,11 @@ public class Order {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

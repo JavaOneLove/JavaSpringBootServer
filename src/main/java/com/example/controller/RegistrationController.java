@@ -34,12 +34,6 @@ public class RegistrationController {
             userRepository.save(user);
         }
     }
-    @PostMapping("/createOrder")
-    public void createOrder(@RequestBody Order order){
-        if(order != null){
-            orderRepository.save(order);
-        }
-    }
     @DeleteMapping("/deleteUser")
     public void deleteUser(@PathVariable("id") int id){
         if (userRepository.findById(id).isPresent()) {

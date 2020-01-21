@@ -19,4 +19,7 @@ public class VehicleService {
         vehicleRepository.findAll().forEach(e -> list.add(e));
         return list;
     }
+    public void save(Vehicle vehicle){
+        vehicleRepository.save(vehicle);
+    }
 }
