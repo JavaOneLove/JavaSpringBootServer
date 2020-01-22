@@ -34,12 +34,6 @@ public class RegistrationController {
             userRepository.save(user);
         }
     }
-    @DeleteMapping("/deleteUser")
-    public void deleteUser(@PathVariable("id") int id){
-        if (userRepository.findById(id).isPresent()) {
-            userRepository.deleteById(id);
-        }
-    }
     @PostMapping("/updateUser")
     public void updateUser(@RequestBody User user){
         if (user != null){

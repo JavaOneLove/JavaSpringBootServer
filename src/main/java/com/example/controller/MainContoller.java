@@ -110,4 +110,16 @@ public class MainContoller {
             orderService.save(order);
         }
     }
+    @PostMapping("/deleteUser")
+    public void deleteUser(@RequestBody User user){
+        if (user != null) {
+            userRepository.delete(user);
+        }
+    }
+    @PostMapping("updateOrder")
+    public void updateOrder(@RequestBody Order order){
+        if (order != null){
+            orderService.save(order);
+        }
+    }
 }
