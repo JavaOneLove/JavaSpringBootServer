@@ -1,7 +1,8 @@
 package com.example.repository;
 
 import com.example.model.Order;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface OrderRepository extends JpaRepository<Order,Integer> {
+public interface OrderRepository extends CrudRepository<Order,Integer> {
+   void getAllOrderById(int id);
 }

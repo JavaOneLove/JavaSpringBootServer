@@ -1,7 +1,7 @@
 package com.example.repository;
 
 import com.example.model.Work;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface WorkRepository extends JpaRepository<Work,Integer> {
+public interface WorkRepository extends CrudRepository<Work,Integer> {
 }

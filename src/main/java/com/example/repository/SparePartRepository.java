@@ -1,7 +1,7 @@
 package com.example.repository;
 
 import com.example.model.SparePart;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface SparePartRepository extends JpaRepository<SparePart,Integer> {
+public interface SparePartRepository extends CrudRepository<SparePart,Integer> {
 }

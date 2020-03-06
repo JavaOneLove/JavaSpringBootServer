@@ -1,7 +1,7 @@
 package com.example.repository;
 
 import com.example.model.Vehicle;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface VehicleRepository extends JpaRepository<Vehicle,Integer> {
+public interface VehicleRepository extends CrudRepository<Vehicle,Integer> {
 }
