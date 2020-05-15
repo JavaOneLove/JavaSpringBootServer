@@ -1,7 +1,5 @@
 package com.example.controller;
 
-import com.example.model.Order;
-import com.example.model.Role;
 import com.example.model.User;
 import com.example.repository.OrderRepository;
 import com.example.repository.UserRepository;

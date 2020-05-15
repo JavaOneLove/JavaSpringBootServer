@@ -2,21 +2,27 @@ package com.example.model;
 
 
 
+import lombok.Data;
 import javax.persistence.*;
-
+import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
+
 
 
 @Entity
-@Table
-public class User extends BaseEntity {
-
+@Table(name = "users")
+public class User extends BaseEntity implements Serializable {
+@Column(name = "username")
     private String username;
+@Column(name = "email")
     private String email;
+@Column(name = "password")
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles")
+    @JoinTable(name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
 
     public User() {

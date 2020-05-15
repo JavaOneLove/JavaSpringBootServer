@@ -7,6 +7,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +33,7 @@ public class JwtTokenProvider {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -89,7 +91,9 @@ public class JwtTokenProvider {
     }
     private List<String> getRoleNames(List<Role> userRoles){
         List<String> result = new ArrayList<>();
-        userRoles.forEach(role -> result.add(role.getName()));
+        userRoles.forEach(role -> {
+            result.add(role.getName());
+        });
         return result;
     }
 }

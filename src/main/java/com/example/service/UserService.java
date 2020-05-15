@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.GuestDto;
 import com.example.model.Role;
 import com.example.model.Status;
 import com.example.model.User;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
+
     @Autowired
     public UserService(UserRepository userRepository,RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder){
     this.userRepository = userRepository;
@@ -27,15 +30,17 @@ public class UserService {
     this.passwordEncoder = passwordEncoder;
     }
 
-    public User register(User user){
-        Role roleUser = roleRepository.findByName("ROLE_USER");
+    public User register(GuestDto guestDto){
+        User user = guestDto.toUser();
+        Role role = roleRepository.findByName("USER");
         List<Role> userRoles = new ArrayList<>();
-        userRoles.add(roleUser);
-
+        userRoles.add(role);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
         user.setStatus(Status.ACTIVE);
-        return null;
+        user.setCreated(LocalDateTime.now());
+        user.setUpdated(LocalDateTime.now());
+        return userRepository.save(user);
     }
 
     public User findByUsername(String username){

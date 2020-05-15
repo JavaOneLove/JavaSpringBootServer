@@ -1,14 +1,14 @@
 package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import lombok.Data;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "roles")
 public class Role extends BaseEntity{
-
-private String name;
+    @Column(name = "name")
+    private String name;
 
 @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
 private List<User> users;
@@ -19,5 +19,12 @@ private List<User> users;
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id: " + super.getId() + ", " +
+                "name: " + name + "}";
     }
 }
