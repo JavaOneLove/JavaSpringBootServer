@@ -7,6 +7,9 @@ import com.example.model.User;
 import com.example.repository.RoleRepository;
 import com.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -14,6 +17,7 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -32,7 +36,7 @@ public class UserService {
 
     public User register(GuestDto guestDto){
         User user = guestDto.toUser();
-        Role role = roleRepository.findByName("USER");
+        Role role = roleRepository.findByName("ROLE_USER");
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(role);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -64,12 +68,21 @@ public class UserService {
             user.setEmail(email);
         }
         if (!StringUtils.isEmpty(password)) {
-            user.setPassword(password);
+
+            user.setPassword(passwordEncoder.encode(password));
         }
         userRepository.save(user);
 
     }
     public void Save(User user){
         userRepository.save(user);
+    }
+
+    public void delete(Long id){
+        userRepository.deleteById(id);
+    }
+
+    public User findById(Long id){
+       return userRepository.findById(id).get();
     }
 }

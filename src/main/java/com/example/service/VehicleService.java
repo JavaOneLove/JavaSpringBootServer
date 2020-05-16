@@ -22,4 +22,10 @@ public class VehicleService {
     public void save(Vehicle vehicle){
         vehicleRepository.save(vehicle);
     }
+
+    public List<Vehicle> getVehicleByUserId(Long id){
+        List<Vehicle> vehicles = new ArrayList<>();
+        vehicles = vehicleRepository.findVehicleByPrimaryUserId(id);
+        return vehicles;
+    }
 }

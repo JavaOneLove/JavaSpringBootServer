@@ -5,6 +5,7 @@ import com.example.model.OrderSparePart;
 import com.example.service.OrderService;
 import com.example.service.OrderSparePartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = "api/manager")
+@PreAuthorize(value = "hasAuthority('ROLE_MANGER')")
 public class ManagerRestController {
 
     private OrderSparePartService orderSparePartService;

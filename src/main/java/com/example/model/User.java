@@ -2,16 +2,17 @@ package com.example.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 
-
+@JsonIgnoreProperties
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity implements Serializable {
+public class User extends BaseEntity implements Serializable{
 @Column(name = "username")
     private String username;
 @Column(name = "email")
