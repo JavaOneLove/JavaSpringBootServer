@@ -36,26 +36,33 @@ public class UserRestController {
     }
 
     @PostMapping(path = "/createVehicle")
-    public void createVehicle(@RequestBody Vehicle vehicle){
-        LOGGER = Logger.getLogger(MainContoller.class.getName());
-        LOGGER.log(Level.INFO, "Автомобиль добавлен");
-        if (vehicle != null)
+    public void createVehicle(@AuthenticationPrincipal Principal principal, @RequestBody Vehicle vehicle){
+
+        if (vehicle != null && principal != null)
+            vehicle.setPrimaryUser(userService.findByUsername(principal.getName()));
             vehicleService.save(vehicle);
+        LOGGER = Logger.getLogger(UserRestController.class.getName());
+        LOGGER.log(Level.INFO, "UserController : /createVehicle : Автомобиль добавлен");
     }
     @GetMapping(path = "/getUserVehicle")
     public ResponseEntity<List<Vehicle>> getUserVehicle(@AuthenticationPrincipal Principal principal){
         String name = principal.getName();
         if(name != null){
            User user = userService.findByUsername(name);
+            LOGGER = Logger.getLogger(UserRestController.class.getName());
+            LOGGER.log(Level.INFO, "UserController : /getUserVehicle : Автомобили получены");
           return new ResponseEntity<>(vehicleService.getVehicleByUserId(user.getId()),HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/createOrder")
-    public void createOrder(@RequestBody Order order){
-        if(order != null){
+    public void createOrder(@AuthenticationPrincipal Principal principal,@RequestBody Order order){
+        if(order != null && principal != null){
+            order.setPrimaryUser(userService.findByUsername(principal.getName()));
             orderService.save(order);
+            LOGGER = Logger.getLogger(UserRestController.class.getName());
+            LOGGER.log(Level.INFO, "UserController : /createOrder : Заказ добавлен");
         }
     }
     @PostMapping("updateOrder")
@@ -66,8 +73,8 @@ public class UserRestController {
     }
     @GetMapping("/userDetailsName")
     public ResponseEntity<User> userDetails(@AuthenticationPrincipal Principal principal) {
-        LOGGER = Logger.getLogger(MainContoller.class.getName());
-        LOGGER.log(Level.INFO, "UserController: /userDetailsName :Пользователь получен");
+        LOGGER = Logger.getLogger(UserRestController.class.getName());
+        LOGGER.log(Level.INFO, "UserController : /userDetailsName : Пользователь получен");
         if (userService.findByUsername(principal.getName()) != null)
             return new ResponseEntity<>(userService.findByUsername(principal.getName()),HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -81,6 +88,17 @@ public class UserRestController {
                 String pas = user.getPassword();
                 userService.updateProfile(userChange, pas, eml, usr);
             }
+    }
+    @GetMapping("/getUserOrders")
+    public ResponseEntity<List<Order>> getUserOrders(@AuthenticationPrincipal Principal principal){
+        String name = principal.getName();
+        if(name != null){
+            User user = userService.findByUsername(name);
+            LOGGER = Logger.getLogger(UserRestController.class.getName());
+            LOGGER.log(Level.INFO, "UserController : /getUserOrders : Заказы получены");
+            return new ResponseEntity<>(orderService.getOrdersByUserId(user.getId()),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

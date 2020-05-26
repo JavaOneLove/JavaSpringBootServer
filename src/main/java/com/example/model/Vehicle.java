@@ -12,7 +12,6 @@ public class Vehicle {
     private String mark;
     private String model;
     private String color;
-    private Date ProductionDate;
 
     @ManyToOne
     private User primaryUser;
@@ -60,11 +59,4 @@ public class Vehicle {
         this.color = color;
     }
 
-    public Date getProductionDate() {
-        return ProductionDate;
-    }
-
-    public void setProductionDate(Date productionDate) {
-        ProductionDate = productionDate;
-    }
 }

@@ -24,8 +24,8 @@ public class VehicleService {
     }
 
     public List<Vehicle> getVehicleByUserId(Long id){
-        List<Vehicle> vehicles = new ArrayList<>();
-        vehicles = vehicleRepository.findVehicleByPrimaryUserId(id);
+        List<Vehicle> vehicles;
+        vehicles = vehicleRepository.findVehiclesByPrimaryUserId(id);
         return vehicles;
     }
 }

@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping(value = "/api/admin")
+@RequestMapping("/api/admin")
 @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
 public class AdminRestController {
 
@@ -27,21 +27,21 @@ public class AdminRestController {
     @GetMapping(path = "/userList")
     public List<User> getUserList() {
         List<User> usersList = userService.getUserList();
-        LOGGER = Logger.getLogger(MainContoller.class.getName());
+        LOGGER = Logger.getLogger(AdminRestController.class.getName());
         LOGGER.log(Level.INFO, "AdminController: /userList : Список пользователей получен");
         return usersList;
     }
 
     @GetMapping("/userDetails/{id}")
     public User userDetails(@PathVariable("id") Long id) {
-        LOGGER = Logger.getLogger(MainContoller.class.getName());
+        LOGGER = Logger.getLogger(AdminRestController.class.getName());
         LOGGER.log(Level.INFO, "AdminController: /userDetails/{id} :Пользователь получен");
         return userService.findById(id);
     }
 
     @GetMapping("/userDetailsName/{name}")
     public User userDetails(@PathVariable("name") String username) {
-        LOGGER = Logger.getLogger(MainContoller.class.getName());
+        LOGGER = Logger.getLogger(AdminRestController.class.getName());
         LOGGER.log(Level.INFO, "AdminController: /userDetailsName/{name} :Пользователь получен");
         return userService.findByUsername(username);
     }

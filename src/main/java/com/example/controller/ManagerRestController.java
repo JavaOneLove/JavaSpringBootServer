@@ -29,7 +29,7 @@ public class ManagerRestController {
 
     @GetMapping(path = "/orderList")
     public List<Order> getAllOrder(){
-        LOGGER = Logger.getLogger(MainContoller.class.getName());
+        LOGGER = Logger.getLogger(ManagerRestController.class.getName());
         LOGGER.log(Level.INFO, "ManagerController : /orderList : Список заказов получен");
         return orderService.getOrderList();
     }
