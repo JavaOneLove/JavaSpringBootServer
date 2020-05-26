@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("/api/auth/")
+@RequestMapping("/api/auth")
 public class AuthenticationRestController {
 
     private final AuthenticationManager authenticationManager;
@@ -37,12 +37,12 @@ public class AuthenticationRestController {
         this.userService = userService;
     }
 
-    @GetMapping("login")
-    public String login(){
-        return "templates/login.html";
+    @GetMapping("/login")
+    public String login(Map<String,Object> model){
+        return "/login";
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
             String username = requestDto.getUsername();

@@ -15,9 +15,3 @@
         <div><button class="btn btn-primary" type="submit">Принять</button></div>
     </form>
 </#macro>
-
-<#macro logout>
-    <form action="/logout" method="post">
-        <input type="submit" value="Log Out"/>
-    </form>
-</#macro>

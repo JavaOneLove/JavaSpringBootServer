@@ -21,9 +21,9 @@ public class RegistrationRestController {
         this.userService = userService;
     }
 
-    @GetMapping("registration")
+    @GetMapping(value = "registration")
     public String registration(){
-        return "templates/registration.ftl";
+        return "registration";
     }
 
     @PostMapping("registration")
