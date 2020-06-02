@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/api/reg")
@@ -21,12 +22,12 @@ public class RegistrationRestController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "registration")
-    public String registration(){
-        return "registration";
+    @GetMapping(value = "/registration")
+    public ModelAndView registration(){
+        return new ModelAndView("registration");
     }
 
-    @PostMapping("registration")
+    @PostMapping("/registration")
     public ResponseEntity registration(@RequestBody GuestDto guestDto) {
         User newUser = userService.register(guestDto);
         if (newUser != null) {

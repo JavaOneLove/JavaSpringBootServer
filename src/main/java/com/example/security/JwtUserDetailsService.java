@@ -1,17 +1,14 @@
 package com.example.security;
 
 import com.example.model.User;
-import com.example.security.jwt.JwtUser;
 import com.example.security.jwt.JwtUserFactory;
 import com.example.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 

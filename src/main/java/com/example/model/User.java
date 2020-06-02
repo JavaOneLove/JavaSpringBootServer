@@ -3,7 +3,6 @@ package com.example.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +18,8 @@ public class User extends BaseEntity implements Serializable{
     private String email;
 @Column(name = "password")
     private String password;
+@Column(name= "token")
+    private String token;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
@@ -66,5 +67,13 @@ public class User extends BaseEntity implements Serializable{
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

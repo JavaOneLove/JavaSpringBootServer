@@ -1,11 +1,13 @@
 package com.example.security.jwt;
 
+import com.example.controller.AuthenticationRestController;
 import com.example.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.hibernate.annotations.common.util.impl.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +20,15 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 @Component
 public class JwtTokenProvider {
@@ -31,8 +38,12 @@ public class JwtTokenProvider {
     @Value("${jwt.token.expired}")
     private long validityInMilliseconds;
 
+    private String Header = "Authorization";
+
     @Autowired
     private UserDetailsService userDetailsService;
+
+    private static Logger LOGGER;
 
 
     @Bean
@@ -46,19 +57,22 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String username, List<Role> roles){
+    public String createToken(String username, List<Role> roles, HttpServletResponse res){
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", getRoleNames(roles));
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
-
-        return Jwts.builder()//
+        String JwtToken = Jwts.builder()//
                 .setClaims(claims)//
                 .setIssuedAt(now)//
                 .setExpiration(validity)//
                 .signWith(SignatureAlgorithm.HS256, secret)//
                 .compact();
+        res.addHeader(Header,"Bearer_" + JwtToken);
+        LOGGER = Logger.getLogger(AuthenticationRestController.class.getName());
+        LOGGER.log(Level.INFO,"Token created: " + res.getHeader(Header));
+        return JwtToken;
     }
     public UsernamePasswordAuthenticationToken getAuthentication(String token){
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
@@ -69,7 +83,9 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
+        String bearerToken = req.getHeader(Header);
+        LOGGER = Logger.getLogger(AuthenticationRestController.class.getName());
+        LOGGER.log(Level.INFO,"2Token is: " + bearerToken);
         if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
             return bearerToken.substring(7, bearerToken.length());
         }
@@ -79,7 +95,8 @@ public class JwtTokenProvider {
     public boolean validateToken(String token){
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-
+            //LOGGER = Logger.getLogger(AuthenticationRestController.class.getName());
+            //LOGGER.log(Level.INFO,"Token is: " + token);
             if (claims.getBody().getExpiration().before(new Date())) {
                 return false;
             }

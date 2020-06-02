@@ -6,15 +6,18 @@ import com.example.repository.UserRepository;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/admin")
-@PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
+//@PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
 public class AdminRestController {
 
     private UserService userService;
@@ -24,12 +27,16 @@ public class AdminRestController {
     public AdminRestController(UserService userService){
         this.userService = userService;
     }
+
     @GetMapping(path = "/userList")
-    public List<User> getUserList() {
+    public ModelAndView getUserList() {
+        ModelAndView model = new ModelAndView();
         List<User> usersList = userService.getUserList();
+        model.addObject(usersList);
+        model.setViewName("getUserList");
         LOGGER = Logger.getLogger(AdminRestController.class.getName());
         LOGGER.log(Level.INFO, "AdminController: /userList : Список пользователей получен");
-        return usersList;
+        return model;
     }
 
     @GetMapping("/userDetails/{id}")
@@ -48,5 +55,10 @@ public class AdminRestController {
     @PostMapping("/deleteUser/{id}")
     public void deleteUser(@PathVariable("id") Long id){
             userService.delete(id);
+    }
+
+    @GetMapping("/profile")
+    public ModelAndView profile(){
+        return new ModelAndView("AdminProfile");
     }
 }
