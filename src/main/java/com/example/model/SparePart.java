@@ -11,17 +11,15 @@ public class SparePart {
     private String name;
     private String mark;
     private String model;
-    private double price;
     private int value;
-    private String Manufacturer;
+    private int idOrder;
 
-    public SparePart(String name, String mark, String model, double price, int value, String manufacturer) {
+
+    public SparePart(String name, String mark, String model,int value) {
         this.name = name;
         this.mark = mark;
         this.model = model;
-        this.price = price;
         this.value = value;
-        Manufacturer = manufacturer;
     }
 
     public SparePart() {
@@ -59,14 +57,6 @@ public class SparePart {
         this.model = model;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public int getValue() {
         return value;
     }
@@ -75,11 +65,11 @@ public class SparePart {
         this.value = value;
     }
 
-    public String getManufacturer() {
-        return Manufacturer;
+    public int getIdOrder() {
+        return idOrder;
     }
 
-    public void setManufacturer(String manufacturer) {
-        Manufacturer = manufacturer;
+    public void setIdOrder(int idOrder) {
+        this.idOrder = idOrder;
     }
 }

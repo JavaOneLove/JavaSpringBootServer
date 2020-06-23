@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.example.security.jwt.JwtConfigurer;
+import com.example.security.jwt.JwtTokenFilter;
 import com.example.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

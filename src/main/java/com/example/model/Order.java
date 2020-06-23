@@ -2,6 +2,7 @@ package com.example.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity(name = "zakaz")

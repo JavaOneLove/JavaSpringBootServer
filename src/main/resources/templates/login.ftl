@@ -17,6 +17,7 @@
         </div>
         <div><button class="btn btn-primary" onclick="func()" >Принять</button></div>
     </form>
+
     <script type="text/javascript">
         var func = function () {
 
@@ -26,7 +27,6 @@
             var username = JSON.stringify($("#username").val());
 
             var pass = JSON.stringify($("#password").val());
-
             $.ajax({
                 "async": true,
                 "crossDomain": true,

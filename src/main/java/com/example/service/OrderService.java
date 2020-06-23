@@ -13,6 +13,10 @@ public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
+    public Order getOrderById(int id){
+        return orderRepository.getOrderById(id);
+    }
+
     public List<Order> getOrderList(){
         List<Order> list = new ArrayList<>();
         orderRepository.findAll().forEach(e -> list.add(e));

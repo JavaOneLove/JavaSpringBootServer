@@ -43,9 +43,9 @@ public class AuthenticationRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
+    @GetMapping("/v2/login")
     public ModelAndView login(){
-        return new ModelAndView("login");
+        return new ModelAndView("3227");
     }
 
     @PostMapping("/login")
@@ -74,7 +74,7 @@ public class AuthenticationRestController {
         }
     }
     @PostMapping("v2/login")
-    public String loginV2(AuthenticationRequestDto requestDto, HttpServletResponse res, HttpServletRequest req){
+    public ModelAndView loginV2(AuthenticationRequestDto requestDto, HttpServletResponse res, HttpServletRequest req){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDto.getUsername(), requestDto.getPassword()));
         User user = userService.findByUsername(requestDto.getUsername());
         ModelAndView view = new ModelAndView();
@@ -91,6 +91,6 @@ public class AuthenticationRestController {
         }else if(user.getRoles().get(0).getName().equals("ROLE_MANAGER")){
             view.setViewName("redirect:/api/manager/orderList");
         }else view = null;
-        return c;
+        return view;
     }
 }

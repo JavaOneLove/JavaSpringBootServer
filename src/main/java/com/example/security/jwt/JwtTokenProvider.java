@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -60,7 +62,6 @@ public class JwtTokenProvider {
     public String createToken(String username, List<Role> roles, HttpServletResponse res){
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", getRoleNames(roles));
-
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
         String JwtToken = Jwts.builder()//
@@ -83,7 +84,12 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader(Header);
+        String bearerToken = null;
+        if (req.getHeader("Authorization") != null)
+        bearerToken = req.getHeader(Header);
+        if (req.getParameter("Authorization") != null)
+            bearerToken = req.getParameter("Authorization");
+
         LOGGER = Logger.getLogger(AuthenticationRestController.class.getName());
         LOGGER.log(Level.INFO,"2Token is: " + bearerToken);
         if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
